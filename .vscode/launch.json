@@ -1,0 +1,51 @@
+{
+    "configurations": [
+        {
+            "type": "rdbg",
+            "name": "Run current day",
+            "request": "launch",
+            "script": "${workspaceFolder}/lib/aoc2023_run.rb",
+            "cwd": "${workspaceFolder}",
+            "askParameters": false,
+            "useTerminal": true
+        },
+        {
+            "type": "rdbg",
+            "name": "Rspec current day",
+            "request": "launch",
+            "command": "bundle exec rspec",
+            "script": "${workspaceRoot}/spec/**/*_spec.rb",
+            "args": ["-r ${workspaceRoot}/spec/spec_helper_current"],
+            "askParameters": false,
+            "useTerminal": true
+        },
+        {
+            "type": "rdbg",
+            "name": "Run older day (specify)",
+            "request": "launch",
+            "script": "${workspaceFolder}/lib/aoc2023_run.rb",
+            "cwd": "${workspaceFolder}",
+            "askParameters": true,
+            "useTerminal": true
+        },
+        {
+            "type": "rdbg",
+            "name": "Rspec all days",
+            "request": "launch",
+            "command": "bundle exec rspec",
+            "script": "${workspaceRoot}/spec/**/*_spec.rb",
+            "args": [],
+            "askParameters": false,
+            "useTerminal": true
+        },
+        {
+            "type": "rdbg",
+            "name": "Scaffold next day",
+            "request": "launch",
+            "script": "${workspaceFolder}/lib/scaffold_next_day.rb",
+            "cwd": "${workspaceFolder}",
+            "askParameters": false,
+            "useTerminal": true
+        }
+    ]
+}

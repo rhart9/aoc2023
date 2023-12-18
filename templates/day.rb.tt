@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+
+module Aoc2023
+  class Day<%= day_num %>
+    def self.solve
+      lines = File.readlines("input/day<%= day_num %>.txt", chomp: true)
+
+      # pt 1
+      puts solve1(lines)
+
+      # pt 2
+      puts solve2(lines)
+    end
+
+    def self.solve1(lines)
+      val = 0
+
+      return val
+    end
+
+    def self.solve2(lines)
+      val = 0
+
+      return val
+    end
+  end
+end
