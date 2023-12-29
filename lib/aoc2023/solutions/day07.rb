@@ -13,6 +13,14 @@ module Aoc2023
     end
 
     def self.solve1(lines)
+      solve_work(lines, false)
+    end
+
+    def self.solve2(lines)
+      solve_work(lines, true)
+    end
+
+    def self.solve_work(lines, jokers_f)
       val = 0
       @bids = []
 
@@ -28,10 +36,16 @@ module Aoc2023
         a_arr = a[:hand].split("")
         b_arr = b[:hand].split("")
 
-        cmp = get_type_rank(a_arr.tally.map(&:last).sort.reverse) <=> get_type_rank(b_arr.tally.map(&:last).sort.reverse)
+        a_tally = a_arr.tally
+        b_tally = b_arr.tally
+
+        a_jokers = a_tally.filter { |k, _v| jokers_f && k == "J" }["J"].to_i
+        b_jokers = b_tally.filter { |k, _v| jokers_f && k == "J" }["J"].to_i
+
+        cmp = get_type_rank(a_tally.reject { |k, _v| jokers_f && k == "J" }.map(&:last).sort.reverse, a_jokers) <=> get_type_rank(b_tally.reject { |k, _v| jokers_f && k == "J" }.map(&:last).sort.reverse, b_jokers) # rubocop:disable Layout/LineLength
         if cmp.zero?
           5.times do |i|
-            cmp = card_value(a_arr[i]) <=> card_value(b_arr[i])
+            cmp = card_value(a_arr[i], jokers_f) <=> card_value(b_arr[i], jokers_f)
             unless cmp.zero?
               break
             end
@@ -47,13 +61,13 @@ module Aoc2023
       return val
     end
 
-    def self.solve2(lines)
-      val = 0
+    def self.get_type_rank(counts_by_label, num_jokers)
+      if num_jokers == 5 # five of a kind all jokers
+        return 7
+      end
 
-      return val
-    end
+      counts_by_label[0] += num_jokers
 
-    def self.get_type_rank(counts_by_label)
       if counts_by_label[0] == 5 # five of a kind
         7
       elsif counts_by_label[0] == 4 # four of a kind
@@ -71,14 +85,14 @@ module Aoc2023
       end
     end
 
-    def self.card_value(label)
+    def self.card_value(label, jokers_f)
       case label
       when "2".."9"
         label.to_i
       when "T"
         10
       when "J"
-        11
+        jokers_f ? 0 : 11
       when "Q"
         12
       when "K"
