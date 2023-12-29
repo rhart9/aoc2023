@@ -9,6 +9,14 @@ RSpec.describe Aoc2023, class_name: "Aoc2023::Day<%= day_num %>" do
     expect(solution).to eq(0)
   end
 
+  it "calculates ? for <%= day_num %> data pt 1" do
+    lines = File.readlines("input/day<%= day_num %>.txt", chomp: true)
+
+    solution = Aoc2023::Day<%= day_num %>.solve1(lines)
+
+    expect(solution).to eq(0)
+  end
+
   it "calculates ? for <%= day_num %> test data pt 2" do
     lines = File.readlines("input/day<%= day_num %>-test.txt", chomp: true)
   
