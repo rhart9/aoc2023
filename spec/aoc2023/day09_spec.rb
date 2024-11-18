@@ -17,11 +17,11 @@ RSpec.describe Aoc2023, class_name: "Aoc2023::Day09" do
     expect(solution).to eq(1_581_679_977)
   end
 
-  it "calculates ? for 09 test data pt 2" do
+  it "calculates 2 for 09 test data pt 2" do
     lines = File.readlines("input/day09-test.txt", chomp: true)
   
     solution = Aoc2023::Day09.solve2(lines)
   
-    expect(solution).to eq(0)
+    expect(solution).to eq(2)
   end
 end

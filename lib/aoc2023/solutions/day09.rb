@@ -13,11 +13,21 @@ module Aoc2023
     end
 
     def self.solve1(lines)
+      @sensors = lines.map { |s| s.split(" ").map(&:to_i) }
+
+      return solve_work()
+    end
+
+    def self.solve2(lines)
+      @sensors = lines.map { |s| s.split(" ").map(&:to_i).reverse }
+
+      return solve_work()
+    end
+
+    def self.solve_work() 
       val = 0
 
-      # Do what they said to do... could bite us in pt 2...
-
-      @sensors = lines.map { |s| s.split(" ").map(&:to_i) }
+      # Do what they said to do... could bite us in pt 2... (pt 2 edit: guess not!)
 
       @sensors.each do |sensor_vals|
         num_vals = sensor_vals.length
@@ -35,12 +45,6 @@ module Aoc2023
 
         val += sensor_vals[num_vals..].reduce(:+)
       end
-
-      return val
-    end
-
-    def self.solve2(lines)
-      val = 0
 
       return val
     end
