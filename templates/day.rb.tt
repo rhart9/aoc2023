@@ -2,23 +2,27 @@
 
 module Aoc2023
   class Day<%= day_num %>
-    def self.solve
-      lines = File.readlines("input/day<%= day_num %>.txt", chomp: true)
-
-      # pt 1
-      puts solve1(lines)
-
-      # pt 2
-      puts solve2(lines)
+    def self.read_input(filename)
+      @@lines = File.readlines(filename, chomp: true)
     end
 
-    def self.solve1(lines)
+    def self.solve
+      read_input("input/day<%= day_num %>.txt")
+
+      # pt 1
+      puts solve1()
+
+      # pt 2
+      puts solve2()
+    end
+
+    def self.solve1
       val = 0
 
       return val
     end
 
-    def self.solve2(lines)
+    def self.solve2
       val = 0
 
       return val
