@@ -17,6 +17,10 @@ module Aoc2023
     end
 
     def self.solve1
+      return solve_common(2)
+    end
+
+    def self.solve_common(empty_space_factor)
       val = 0
 
       empty_rows = (0...@@lines.length).to_a
@@ -40,8 +44,8 @@ module Aoc2023
           col1, col2 = loc1.last < loc2.last ? [loc1.last, loc2.last] : [loc2.last, loc1.last]
 
           val += row2 - row1 + col2 - col1
-          val += empty_rows.select { |row| row.between?(row1, row2) }.length 
-          val += empty_cols.select { |col| col.between?(col1, col2) }.length
+          val += empty_rows.select { |row| row.between?(row1, row2) }.length * (empty_space_factor - 1)
+          val += empty_cols.select { |col| col.between?(col1, col2) }.length * (empty_space_factor - 1)
         end
       end
 
@@ -49,9 +53,7 @@ module Aoc2023
     end
 
     def self.solve2
-      val = 0
-
-      return val
+      return solve_common(1000000)
     end
   end
 end
