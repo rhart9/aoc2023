@@ -17,23 +17,33 @@ module Aoc2023
     end
 
     def self.solve1
-      val = 0
-
       @instructions = @@lines.map do |s|
         spring_conds, group_sizes = s.split(" ")
         {spring_conds: spring_conds, group_sizes: group_sizes.split(",").map(&:to_i)}
       end
 
+      return solve_work
+    end
+
+    def self.solve_work
+      val = 0
+
       @instructions.each do |instruction|
+        @memo = Hash.new { |h, k| h[k] = {} }
+        @spring_conds = instruction[:spring_conds]
         @group_sizes = instruction[:group_sizes]
-        val += num_configurations(0, instruction[:spring_conds])
+        val += num_configurations(0, 0)
       end
 
       return val
     end
 
     # find number of valid configurations with group number <group_no> within <spring_conds_part>
-    def self.num_configurations(group_no, spring_conds_part)
+    def self.num_configurations(group_no, spring_cond_start)
+      memo = @memo[group_no][spring_cond_start]
+      return memo unless memo.nil?
+
+      spring_conds_part = @spring_conds[spring_cond_start..]
       group_size = @group_sizes[group_no]
       needed_for_remaining_groups = (@group_sizes.length - group_no - 1)
       needed_for_remaining_groups += @group_sizes[group_no+1..].reduce(&:+) if needed_for_remaining_groups.positive?
@@ -57,17 +67,24 @@ module Aoc2023
           next if spring_conds_part[i+group_size] == "#"                  # group is larger than group_size
           next if i+group_size+1 >= spring_conds_part.length              # no room for another group
 
-          val += num_configurations(group_no + 1, spring_conds_part[i+group_size+1..])
+          val += num_configurations(group_no + 1, spring_cond_start+i+group_size+1)
         end
       end
 
+      @memo[group_no].merge!({ spring_cond_start => val })
       return val
     end
 
     def self.solve2
-      val = 0
+      @instructions = @@lines.map do |s|
+        spring_conds, group_sizes = s.split(" ")
+        {
+          spring_conds: 5.times.map { spring_conds }.join("?"), 
+          group_sizes: 5.times.map { group_sizes.split(",").map(&:to_i) }.flatten
+        }
+      end
 
-      return val
+      return solve_work
     end
   end
 end

@@ -25,11 +25,11 @@ RSpec.describe Aoc2023, class_name: "Aoc2023::Day12" do
     expect(solution).to eq(7_674)
   end
 
-  it "calculates ? for 12 test data pt 2" do
+  it "calculates 525152 for 12 test data pt 2" do
     Aoc2023::Day12.read_input("input/day12-test.txt")
   
     solution = Aoc2023::Day12.solve2
   
-    expect(solution).to eq(0)
+    expect(solution).to eq(525_152)
   end
 end
